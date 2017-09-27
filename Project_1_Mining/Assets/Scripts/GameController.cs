@@ -5,13 +5,14 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
     int bronzePlayer = 0;
     int silverPlayer = 0;
+    //Public makes the variable editable in Unity
     public int miningSpeed = 3;
     public int bronzeSupply = 3;
     int silverSupply = 2;
     int timeToMine;
     //Tells the script that the cube exists
     public GameObject myCube;
-    //Creates a x, y, and z position
+    //Vector3 creates a x, y, and z position
     Vector3 cubePosition;
     public float xPosition;
     GameObject currentCube;
@@ -19,9 +20,8 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         timeToMine = miningSpeed;
-        //Sets where the cubes will appear, can use Random.Range (x, y)
+        //Sets where the cubes will appear, can use Random.Range (min: x, max: y)
         xPosition = 0;
-        cubePosition = new Vector3(xPosition, 0f, 0f);
 	}
 	
 	// Update is called once per frame
@@ -35,6 +35,7 @@ public class GameController : MonoBehaviour {
                 {
                     silverPlayer += 1;
                     silverSupply -= 1;
+                    cubePosition = new Vector3(Random.Range(min: -4f, max: 0f), Random.Range(min: -4f, max: 0f), 0f);
                     currentCube = Instantiate (myCube, cubePosition, Quaternion.identity);
                     currentCube.GetComponent<Renderer>().material.color = Color.gray;
                 }
@@ -43,12 +44,12 @@ public class GameController : MonoBehaviour {
             {
                 bronzePlayer += 1;
                 bronzeSupply -= 1;
+                cubePosition = new Vector3(Random.Range(min: 0f, max: 4f), Random.Range(min: 0f, max: 2f), 0f);
                 //Instantiate makes a cube appear using (WhatToInstantiate, WhereToMakeIt, Rotation)
                 currentCube = Instantiate (myCube, cubePosition, Quaternion.identity);
-                xPosition += 1f;
                 //This can assign a color using Unity's renderer
                 currentCube.GetComponent<Renderer>().material.color = Color.red;
-             }
+            }
             //Wait miningSpeed seconds to mine more ore
             timeToMine += miningSpeed;
             //Tell the player how many ore they have
