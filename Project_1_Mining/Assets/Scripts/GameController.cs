@@ -35,16 +35,15 @@ public class GameController : MonoBehaviour {
                 {
                     silverPlayer += 1;
                     silverSupply -= 1;
-                    cubePosition = new Vector3(Random.Range(min: -4f, max: 0f), Random.Range(min: -4f, max: 0f), 0f);
+                    cubePosition = new Vector3(0f + silverPlayer, 2f, 0f);
                     currentCube = Instantiate (myCube, cubePosition, Quaternion.identity);
                     currentCube.GetComponent<Renderer>().material.color = Color.gray;
                 }
             }
-            if (bronzeSupply > 0)
-            {
-                bronzePlayer += 1;
+            if (bronzeSupply > 0) {
                 bronzeSupply -= 1;
-                cubePosition = new Vector3(Random.Range(min: 0f, max: 4f), Random.Range(min: 0f, max: 2f), 0f);
+                bronzePlayer += 1;
+                cubePosition = new Vector3(0f + bronzePlayer, 1f, 0f);
                 //Instantiate makes a cube appear using (WhatToInstantiate, WhereToMakeIt, Rotation)
                 currentCube = Instantiate (myCube, cubePosition, Quaternion.identity);
                 //This can assign a color using Unity's renderer
@@ -54,6 +53,6 @@ public class GameController : MonoBehaviour {
             timeToMine += miningSpeed;
             //Tell the player how many ore they have
             print("Bronze:"+bronzePlayer + ".... Silver:"+silverPlayer);
-                }
+       }
 	}
 }
