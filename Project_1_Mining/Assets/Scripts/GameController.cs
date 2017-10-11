@@ -7,8 +7,6 @@ public class GameController : MonoBehaviour {
     int silverPlayer = 0;
     //Public makes the variable editable in Unity
     public int miningSpeed = 3;
-    public int bronzeSupply = 3;
-    int silverSupply = 2;
     int timeToMine;
     //Tells the script that the cube exists
     public GameObject myCube;
@@ -16,6 +14,14 @@ public class GameController : MonoBehaviour {
     Vector3 cubePosition;
     public float xPosition;
     GameObject currentCube;
+    int goldPlayer;
+    int goldSupply;
+    int bronzeSupply;
+    int silverSupply;
+    void MakeCube()
+    {
+
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -28,22 +34,25 @@ public class GameController : MonoBehaviour {
 	void Update () {
 		if (Time.time > timeToMine)
         {
-            //Mine some ore and update the amount of ore the player has
-            if (bronzeSupply == 0)
-            {
-                if (silverSupply > 0)
-                {
-                    silverPlayer += 1;
-                    silverSupply -= 1;
-                    cubePosition = new Vector3(0f + silverPlayer, 2f, 0f);
-                    currentCube = Instantiate (myCube, cubePosition, Quaternion.identity);
-                    currentCube.GetComponent<Renderer>().material.color = Color.gray;
-                }
+            if (bronzePlayer == 2 && silverSupply == 2){
+                goldPlayer += 1;
+                goldSupply += 1;
+                cubePosition = new Vector3(0f + goldPlayer + goldPlayer, 6f, 0f);
+                currentCube = Instantiate(myCube, cubePosition, Quaternion.identity);
+                currentCube.GetComponent<Renderer>().material.color = Color.yellow;
             }
-            if (bronzeSupply > 0) {
-                bronzeSupply -= 1;
+            if (bronzeSupply >= 4)
+            {
+                    silverPlayer += 1;
+                    silverSupply += 1;
+                    cubePosition = new Vector3(0f + silverPlayer + silverPlayer, 4f, 0f);
+                    currentCube = Instantiate (myCube, cubePosition, Quaternion.identity);
+                    currentCube.GetComponent<Renderer>().material.color = Color.gray; 
+            }
+            if (bronzePlayer < 4) {
                 bronzePlayer += 1;
-                cubePosition = new Vector3(0f + bronzePlayer, 1f, 0f);
+                bronzeSupply += 1;
+                cubePosition = new Vector3(0f + bronzePlayer + bronzePlayer, 2f, 0f);
                 //Instantiate makes a cube appear using (WhatToInstantiate, WhereToMakeIt, Rotation)
                 currentCube = Instantiate (myCube, cubePosition, Quaternion.identity);
                 //This can assign a color using Unity's renderer
